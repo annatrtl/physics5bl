@@ -15,11 +15,11 @@ def damped(t, amp, freq, damp_r, phase, offset):
 
 # set up plots
 fig, (ax1, ax2) = plt.subplots(1, 2)
-ax1.set_xlabel("Displacement [m]")
-ax1.set_ylabel("Force [N]")
-ax1.set_title("Displacement vs Force")
-ax2.set_xlabel("Displacement [m]")
-ax2.set_ylabel("Residuals [N]")
+ax1.set_xlabel("Time [s]")
+ax1.set_ylabel("Y Acceleration [1/s^2]")
+ax1.set_title("Y Acceleration vs Time fitted to Damped Oscillation")
+ax2.set_xlabel("Time [s]")
+ax2.set_ylabel("Residuals [1/s^2]")
 ax2.set_title("Residuals Plot")
 
 # approx for function

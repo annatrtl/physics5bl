@@ -36,8 +36,10 @@ ax1.legend()
 yfit = popt[0] * -1 * (popt[1]**2) * np.cos(popt[1] * time + popt[2]) + popt[3]
 ax2.scatter(time, acc - yfit)
 
-# frequency
+# frequency & spring constant
 print(f"The harmonic oscillation frequency: {popt[1]:.9f} 1/s")
+mass = 0.203 #g
+print(f"The spring constant: {(popt[1]**2)*mass:.9f} N/m")
 
 """
 # find mass
@@ -54,5 +56,7 @@ yfit = lin_func(acc)
 plt.plot(acc, yfit, label=f"y={coef[0]}x+{coef[1]}")
 plt.legend()
 """
+idk = np.polyfit(acc, force, 1)
+print(f"k const using mass from data: {(popt[1]**2)*idk[0]:.9f} N/m")
 
 plt.show()
