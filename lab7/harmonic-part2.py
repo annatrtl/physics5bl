@@ -12,7 +12,7 @@ time = df['time'].to_numpy()
 
 # harmonic function
 def harmonic(t, amp, freq, phase, offset):
-    return amp * np.cos(freq * t + phase) + offset
+    return amp * -1 *(freq**2) * np.cos(freq * t + phase) + offset
 
 # set up plots
 fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -24,7 +24,7 @@ ax2.set_ylabel("Residuals [1/s^2]")
 ax2.set_title("Residuals Plot")
 
 # approx for function
-guesses = [5, 13.5, 0.1, 0]
+guesses = [5, 8, 1, -10]
 
 # oscillation plot
 popt, pcov = curve_fit(harmonic, time, acc, p0=guesses)
@@ -33,7 +33,7 @@ ax1.scatter(time, acc)
 ax1.legend()
 
 # residuals plot
-yfit = popt[0] * np.cos(popt[1] * time + popt[2]) + popt[3]
+yfit = popt[0] * -1 * (popt[1]**2) * np.cos(popt[1] * time + popt[2]) + popt[3]
 ax2.scatter(time, acc - yfit)
 
 # frequency

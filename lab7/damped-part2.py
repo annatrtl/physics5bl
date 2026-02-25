@@ -11,7 +11,7 @@ time = df['time'].to_numpy()
 
 # damped function
 def damped(t, amp, freq, damp_r, phase, offset):
-    return amp * np.exp(-damp_r * t) * np.cos(freq * t + phase) + offset
+    return amp * -1 * (freq**2) * np.exp(-damp_r * t) * np.cos(freq * t + phase) + offset
 
 # set up plots
 fig, (ax1, ax2) = plt.subplots(1, 2)
@@ -32,8 +32,7 @@ ax1.scatter(time, acc)
 ax1.legend()
 
 # residuals plot
-#yfit = popt[0] * np.cos(np.pi*2*popt[1] * time)
-yfit = popt[0] * np.exp(-popt[2] * time) * np.cos(popt[1] * time + popt[3]) + popt[4]
+yfit = popt[0] * -1 * (popt[1]**2) * np.exp(-popt[2] * time) * np.cos(popt[1] * time + popt[3]) + popt[4]
 ax2.scatter(time, acc-yfit)
 
 # frequency & damping factor
