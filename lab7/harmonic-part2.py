@@ -39,24 +39,9 @@ ax2.scatter(time, acc - yfit)
 # frequency & spring constant
 print(f"The harmonic oscillation frequency: {popt[1]:.9f} 1/s")
 mass = 0.203 #g
-print(f"The spring constant: {(popt[1]**2)*mass:.9f} N/m")
+print(f"The spring constant w/mass from electronic scale: {(popt[1]**2)*mass:.9f} N/m")
 
-"""
-# find mass
-fig = plt.figure()
-plt.xlabel("Acceleration [1/s^2]")
-plt.ylabel("Force [N]")
-plt.title("Force vs Acceleration of Harmonic Oscillation")
-plt.scatter(acc, force, c="orange")
-
-# find mass - least squares plot
 coef = np.polyfit(acc, force, 1)
-lin_func = np.poly1d(coef)
-yfit = lin_func(acc)
-plt.plot(acc, yfit, label=f"y={coef[0]}x+{coef[1]}")
-plt.legend()
-"""
-idk = np.polyfit(acc, force, 1)
-print(f"k const using mass from data: {(popt[1]**2)*idk[0]:.9f} N/m")
+print(f"The spring constant w/mass from (force data / acceleration data): {(popt[1]**2)*coef[0]:.9f} N/m")
 
 plt.show()
