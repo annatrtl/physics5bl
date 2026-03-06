@@ -37,11 +37,15 @@ yfit = popt[0] * -1 * (popt[1]**2) * np.cos(popt[1] * time + popt[2]) + popt[3]
 ax2.scatter(time, acc - yfit)
 
 # frequency & spring constant
-print(f"The harmonic oscillation frequency: {popt[1]:.9f} 1/s")
 mass = 0.203 #g
-print(f"The spring constant w/mass from electronic scale: {(popt[1]**2)*mass:.9f} N/m")
+m_err = 0.001
+f_err = np.sqrt(np.diag(pcov))[1]
+print(f"The harmonic oscillation frequency: {popt[1]:.9f} +/- {f_err:.9f} 1/s")
+k_err = (popt[1]**2)*mass*np.sqrt(4*(f_err**2/popt[1]**2) + (m_err**2/mass**2))
+print(f"The spring constant: {(popt[1]**2)*mass:.9f} +/- {k_err:.9f} N/m")
 
-coef = np.polyfit(acc, force, 1)
-print(f"The spring constant w/mass from (force data / acceleration data): {(popt[1]**2)*coef[0]:.9f} N/m")
 
+# acceptance test
+print(f"Value agree? They agree if A - B ({abs(((popt[1]**2)*mass) - 12):.3f}) < 2(aA + aB) ({2*((k_err**2) + (1.2**2)):.3f})")
+print(f"Values agree? {abs(((popt[1]**2)*mass) - 12) < (2*((k_err**2) + (1.2**2)))}")
 plt.show()

@@ -30,8 +30,8 @@ lin_func = np.poly1d(coef)
 yfit = lin_func(displ)
 
 # acceptance test
-print(f"Values agree? They agree if A - B ({abs(coef[0] - 12):.3f}) < 2(aA + aB) ({2*(stderr + 1.2):.3f})")
-print(f"Values agree? {abs(coef[0] - 12) < 2*(stderr + 1.2)}")
+print(f"Values agree? They agree if A - B ({abs(coef[0] - 12):.3f}) < 2(aA + aB) ({2*((stderr**2) + (1.2**2)):.3f})")
+print(f"Values agree? {abs(coef[0] - 12) < 2*((stderr**2) + (1.2**2))}")
 
 # least squares plot
 ax1.scatter(displ, force, c='orange')
