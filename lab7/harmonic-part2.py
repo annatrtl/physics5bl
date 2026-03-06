@@ -37,7 +37,7 @@ yfit = popt[0] * -1 * (popt[1]**2) * np.cos(popt[1] * time + popt[2]) + popt[3]
 ax2.scatter(time, acc - yfit)
 
 # frequency & spring constant
-mass = 0.203 #g
+mass = 0.203
 m_err = 0.001
 f_err = np.sqrt(np.diag(pcov))[1]
 print(f"The harmonic oscillation frequency: {popt[1]:.9f} +/- {f_err:.9f} 1/s")
