@@ -8,7 +8,7 @@ high_gain_1ohm = np.array([-0.035e-3, -0.035e-3, -0.035e-3, -0.035e-3, -0.031e-3
 
 # calcs
 ten_kohm_voltage = dac_voltage - high_gain_1ohm
-offset = -0.19e-3/-2.01
+offset = -1.09e-3/-9.48
 current = (high_gain_1ohm + offset) / 1 #volts/ohms
 
 # exponential function
@@ -16,12 +16,13 @@ def expf(x, a, b, c):
     return a * np.exp(b*x) + c 
 
 # approx for function
-guesses = [0.01, 1, 0.00005]
+guesses = [0, 1, 0]
 
 # I vs V plot
 fig = plt.figure()
-plt.xlabel("Voltage corrected for offset [Volts]")
-plt.ylabel("Current [Amps]")
+plt.title("Current vs Voltage for Red LED")
+plt.xlabel("Voltage corrected for offset [V]")
+plt.ylabel("Current [A]")
 plt.errorbar(ten_kohm_voltage, current, fmt=".")
 
 popt, pcov = curve_fit(expf, ten_kohm_voltage, current, p0=guesses) 
@@ -30,8 +31,9 @@ plt.legend()
 
 # residuals plot
 fig = plt.figure()
-plt.xlabel("Voltage corrected for offset [Volts]")
-plt.ylabel("Residuals [Amps]")
+plt.title("Residuals for Red LED I vs V plot")
+plt.xlabel("Voltage corrected for offset [V]")
+plt.ylabel("Residuals [A]")
 
 yfit = popt[0] * np.exp(popt[1] * ten_kohm_voltage) + popt[2]
 plt.scatter(ten_kohm_voltage, yfit - current)

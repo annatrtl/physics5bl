@@ -13,21 +13,23 @@ current = (high_gain_1ohm + offset) / 1 #volts/ohms
 
 # I vs V plot
 fig = plt.figure()
-plt.xlabel("Voltage corrected for offset [Volts]")
-plt.ylabel("Current [Amps]")
+plt.title("Current vs Voltage for 10kohm Resistor")
+plt.xlabel("Voltage corrected for offset [V]")
+plt.ylabel("Current [A]")
 
 coef = np.polyfit(ten_kohm_voltage, current, 1)
 lin_func = np.poly1d(coef)
 yfit = lin_func(ten_kohm_voltage)
 
 plt.errorbar(ten_kohm_voltage, current, fmt=".")
-plt.plot(ten_kohm_voltage, yfit, label=f"y = {coef[0]}x + {coef[1]}")
+plt.plot(ten_kohm_voltage, yfit, label=f"y = {coef[0]:.9f}x + {coef[1]:.9f}")
 plt.legend()
 
 #residuals plot
 fig = plt.figure()
-plt.xlabel("Voltage corrected for offset [Volts]")
-plt.ylabel("Residuals [Amps]")
+plt.title("Residuals for 10kohm I vs V plot")
+plt.xlabel("Voltage corrected for offset [V]")
+plt.ylabel("Residuals [A]")
 
 plt.scatter(ten_kohm_voltage, yfit - current)
 
