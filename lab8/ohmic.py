@@ -10,7 +10,7 @@ file = "./10kohm.csv"
 df = pd.read_csv(file)
 dac_voltage = df['dac'].to_numpy()
 high_gain_1ohm = df['highgain'].to_numpy()
-
+high_gain_1ohm = high_gain_1ohm*1e-3
 
 # high gain
 ten_kohm_voltage = dac_voltage - high_gain_1ohm
@@ -32,7 +32,7 @@ result = linregress(ten_kohm_voltage, current)
 plt.errorbar(ten_kohm_voltage, current, fmt=".")
 plt.plot(ten_kohm_voltage, yfit, label=f"y = ({coef[0]:.9f} +/- {result.stderr:.9f})x + ({coef[1]:.9f} +/- {result.intercept_stderr:.9f})")
 
-#chi squared
+# chi squared
 chi_sq = np.sum(((current-yfit) / yfit) **2)
 red_chi_sq = chi_sq / (len(ten_kohm_voltage) - 2)
 text = f"Reduced chi squared: {red_chi_sq:.9f}"
@@ -40,14 +40,17 @@ fig = fig.text(0.5, 0.02, text, wrap=True, horizontalalignment='center')
 
 plt.legend()
 
-print(1/coef[0])
+# resistance value
+r = 1/coef[0]
+err = r * result.stderr
+print(f"Resistance: {r:.9f} +/- {err:.9f}")
 
 # acceptance test
-print(f"Values agree? They agree if A - B ({abs((1/coef[0]) - 10):.3f}) < 2(aA + aB) ({2*((result.stderr**2) + (0.5**2)):.3f})")
-print(f"Values agree? {abs((1/coef[0]) - 10) < 2*((result.stderr**2) + (0.5**2))}")
+print(f"Values agree? They agree if A - B ({abs(r - 10000):.3f}) < 2(aA + aB) ({2*((err**2) + (500**2)):.3f})")
+print(f"Values agree? {abs(r - 10000) < 2*((err**2) + (500**2))}")
 
 
-#residuals plot
+# residuals plot
 fig = plt.figure()
 plt.title("Residuals for 10kohm I vs V plot")
 plt.xlabel("Voltage corrected for offset [V]")
