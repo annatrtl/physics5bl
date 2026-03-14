@@ -18,6 +18,11 @@ def expf(x, a, b, c):
 # approx for function
 guesses = [0, 1, 0]
 
+# linear fit
+coef = np.polyfit(ten_kohm_voltage, current, 1)
+lin_func = np.poly1d(coef)
+linfit = lin_func(ten_kohm_voltage)
+
 # I vs V plot
 fig = plt.figure()
 plt.title("Current vs Voltage for Green LED")
@@ -26,19 +31,21 @@ plt.ylabel("Current [A]")
 plt.errorbar(ten_kohm_voltage, current, fmt=".")
 
 popt, pcov = curve_fit(expf, ten_kohm_voltage, current, p0=guesses) 
-plt.plot(ten_kohm_voltage, expf(ten_kohm_voltage, *popt), 'r-', label=f"Fitted exponential function")
+plt.plot(ten_kohm_voltage, expf(ten_kohm_voltage, *popt), 'r-', label=f"y = {popt[0]:.9f} * e^({popt[1]:.9f}x) + {popt[2]:.9f}")
+plt.plot(ten_kohm_voltage, linfit, label=f"y = {coef[0]:.9f}x + {coef[1]:.9f}")
 plt.legend()
-
 print(popt)
 
 # residuals plot
 fig = plt.figure()
-plt.title("Residuals for Green LED I vs V plot")
+plt.title("Residuals for Green LED")
 plt.xlabel("Voltage corrected for offset [V]")
 plt.ylabel("Residuals [A]")
 
 yfit = popt[0] * np.exp(popt[1] * ten_kohm_voltage) + popt[2]
-plt.scatter(ten_kohm_voltage, yfit - current)
+plt.scatter(ten_kohm_voltage, yfit - current, label="Exponential residuals", color="blue")
+plt.scatter(ten_kohm_voltage, linfit - current, label="Linear residuals", color="orange")
 
+plt.legend()
 plt.show()
 
