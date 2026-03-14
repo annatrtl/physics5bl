@@ -43,17 +43,17 @@ plt.plot(ten_kohm_voltage, expf(ten_kohm_voltage, *popt), 'r-', label=f"Exponent
 plt.plot(ten_kohm_voltage, linfit, label=f"y = ({coef[0]:.9f} +/- {result.stderr:.9f})x + ({coef[1]:.9f} +/- {result.intercept_stderr:.9f})")
 plt.legend()
 
-
-#chi squared
-chi_sq = np.sum(((current-linfit) / linfit) **2)
-red_chi_sq = chi_sq / (len(ten_kohm_voltage) - 2)
-text = f"Reduced chi squared: {red_chi_sq:.9f}"
-fig = fig.text(0.5, 0.02, text, wrap=True, horizontalalignment='center')
-
 # resistance value
 r = 1/coef[0]
 err = r * result.stderr
 print(f"Resistance: {r:.9f} +/- {err:.9f}")
+
+# chi squared
+c_err = np.std(current)/np.sqrt(len(current))
+chi_sq = np.sum(((current-linfit) / c_err) **2)
+red_chi_sq = chi_sq / (len(ten_kohm_voltage) - 2)
+text = f"Reduced chi squared: {red_chi_sq:.9f}"
+fig = fig.text(0.5, 0.02, text, wrap=True, horizontalalignment='center')
 
 # residuals plot
 fig = plt.figure()

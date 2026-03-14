@@ -32,18 +32,19 @@ result = linregress(ten_kohm_voltage, current)
 plt.errorbar(ten_kohm_voltage, current, fmt=".")
 plt.plot(ten_kohm_voltage, yfit, label=f"y = ({coef[0]:.9f} +/- {result.stderr:.9f})x + ({coef[1]:.9f} +/- {result.intercept_stderr:.9f})")
 
+# resistance value
+r = 1/coef[0]
+err = r * result.stderr
+print(f"Resistance: {r:.9f} +/- {err:.9f}")
+
 # chi squared
-chi_sq = np.sum(((current-yfit) / yfit) **2)
+c_err = np.std(current)/np.sqrt(len(current))
+chi_sq = np.sum(((current-yfit) / c_err) **2)
 red_chi_sq = chi_sq / (len(ten_kohm_voltage) - 2)
 text = f"Reduced chi squared: {red_chi_sq:.9f}"
 fig = fig.text(0.5, 0.02, text, wrap=True, horizontalalignment='center')
 
 plt.legend()
-
-# resistance value
-r = 1/coef[0]
-err = r * result.stderr
-print(f"Resistance: {r:.9f} +/- {err:.9f}")
 
 # acceptance test
 print(f"Values agree? They agree if A - B ({abs(r - 10000):.3f}) < 2(aA + aB) ({2*((err**2) + (500**2)):.3f})")
