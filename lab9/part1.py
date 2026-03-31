@@ -72,6 +72,17 @@ yfit2 = ps_func(ang_freq[:-1], popt_ps[0])
 fig = plt.figure()
 plt.title('Residuals for Phase Shift vs Angular Frequency plot')
 plt.xlabel('Angular Frequency [rad/s]')
+# plot 1: vc/vo vs ang_freq plot setup
+fig = plt.figure()
+plt.title('Vc/Vo as a function of Angular Frequency (Log-Log)')
+plt.xlabel('Log Scale Angular Frequency [rad/s]')
+plt.ylabel('Log Scale Vc/Vo')
+plt.errorbar(np.log(ang_freq), np.log(vc_over_vo), fmt='.')
+r_guesses = [1, 1e-3]
+
+# plot 1
+popt_r, pcov_r = curve_fit(v_ratio_func, ang_freq, vc_over_vo, p0=r_guesses)
+plt.plot(np.log(ang_freq), np.log(v_ratio_func(ang_freq, *popt_r)), '-r', label=f"Fitted function")
 plt.ylabel('Phase shift residuals')
 plt.scatter(ang_freq[:-1], yfit2 - ps_angle[:-1])
 
