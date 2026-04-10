@@ -16,9 +16,9 @@ tension = mass * 9.8
 
 # plot setup
 fig = plt.figure()
-plt.title('')
-plt.xlabel('')
-plt.ylabel('')
+plt.title('Fixed length and tension, varying frequency (inelastic string)')
+plt.xlabel('Harmonic number')
+plt.ylabel('Frequency [Hz]')
 
 coef = np.polyfit(h_num, freq, 1)
 lin_func = np.poly1d(coef)
@@ -34,9 +34,9 @@ plt.legend()
 
 # residuals
 fig = plt.figure()
-plt.title("")
-plt.xlabel("")
-plt.ylabel("")
+plt.title("Varying frequency residuals")
+plt.xlabel("Harmonic number")
+plt.ylabel("Frequency residuals [Hz]")
 plt.scatter(h_num, yfit - freq)
 
 # agreement tests
@@ -51,11 +51,10 @@ print(f"TH Linear mass density: {th_d:.9f} +/- {th_d_err:.9f}")
 print(f"EXP Linear mass density: {exp_d:.9f} +/- {exp_d_err:.9f}")
 print(f"Values agree? They agree if A - B ({abs(exp_d - th_d):.9f}) < 2(err_a^2 + err_b^2) ({2*((exp_d_err**2) + (th_d_err**2)):.9f})")
 print(f"Values agree? {abs(exp_d - th_d) < 2*((th_d_err**2) + (exp_d_err**2))}")
-"""
 
 # reduced chi squared
-error = np.std(length)/np.sqrt(len(length))
-chi_sq = np.sum(((length-yfit) / error) **2)
-red_chi_sq = chi_sq / (len(length) - 2)
-"""
+chi_sq = np.sum(((freq-yfit) / freq_err) **2)
+red_chi_sq = chi_sq / (len(freq) - 2)
+print(f"Reduced chi squared: {red_chi_sq:.9f}")
+
 plt.show()
