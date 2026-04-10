@@ -28,9 +28,10 @@ result = linregress(h_num, freq)
 
 plt.errorbar(h_num, freq, fmt=".", yerr = freq_err)
 plt.plot(h_num, yfit, label=f"y = ({coef[0]:.9f} +/- {result.stderr:.9f})x + ({coef[1]:.9f} +/- {result.intercept_stderr:.9f})")
+text = f"Error bars: {freq_err} Hz"
+fig = fig.text(0.5, 0.02, text, wrap=True, horizontalalignment='center')
 
 plt.legend()
-
 
 # residuals
 fig = plt.figure()
@@ -45,7 +46,7 @@ length_overall = 1.972 #m
 ten_err = 0.5e-3*9.8
 th_d = mass_overall / length_overall
 th_d_err = th_d * np.sqrt(((0.5e-3/mass_overall)**2) + ((0.0005/length_overall)**2))
-exp_d = (1/(2*length*coef[0])**2)*(tension)
+exp_d = (tension/(2*length*coef[0])**2)
 exp_d_err = exp_d * np.sqrt(((ten_err/tension)**2) + ((2 * result.stderr / coef[0])**2))
 print(f"TH Linear mass density: {th_d:.9f} +/- {th_d_err:.9f}")
 print(f"EXP Linear mass density: {exp_d:.9f} +/- {exp_d_err:.9f}")
