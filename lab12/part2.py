@@ -14,8 +14,8 @@ time = df['time'].to_numpy() #s
 voltage = voltage * 1e-3
 bz = bz * 1e-6
 dBdt = [(bz[i+1]-bz[i-1])/(time[i+1]-time[i-1]) for i in range(1, len(bz)-1)]
-dBdt = np.insert(dBdt, 0, bz[1]-bz[0])/(time[1]-time[0])
-dBdt = np.append(dBdt, bz[-1]-bz[-2])/(time[-1]-time[-2])
+dBdt = np.insert(dBdt, 0, (bz[1]-bz[0])/(time[1]-time[0]))
+dBdt = np.append(dBdt, (bz[-1]-bz[-2])/(time[-1]-time[-2]))
 
 # plot setup
 fig = plt.figure()
