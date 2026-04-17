@@ -19,9 +19,9 @@ dBdt = np.append(dBdt, bz[-1]-bz[-2])/(time[-1]-time[-2])
 
 # plot setup
 fig = plt.figure()
-plt.title('')
-plt.xlabel('')
-plt.ylabel('')
+plt.title('EMF as a function of dBz/dt')
+plt.xlabel('Derivative of the z-component of magnetic field [T/s]')
+plt.ylabel('EMF [V]')
 
 coef = np.polyfit(dBdt, voltage, 1)
 lin_func = np.poly1d(coef)
@@ -35,16 +35,16 @@ plt.legend()
 
 # residuals plot
 fig = plt.figure()
-plt.title('')
-plt.xlabel('')
-plt.ylabel('')
+plt.title('Residuals for the EMF vs dBz/dt plot')
+plt.xlabel('Derivative of the z-component of magnetic field [T/s]')
+plt.ylabel('Residuals [V]')
 
 plt.scatter(dBdt, yfit - voltage)
 
 # predicted slope
 n = 21
 d = 2.3 * 1e-2 #m
-a = 2 * np.pi * (d/2)
+a = np.pi * ((d/2)**2)
 pr_slope = -1 * n * a
 pr_slope_err = pr_slope * 0.05e-3
 print(pr_slope, pr_slope_err)
