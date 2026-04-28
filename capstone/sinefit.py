@@ -27,7 +27,7 @@ time3 = df3['TIME'].to_numpy() #s
 
 # sine function
 def sin(t, a, w, phi):
-    return a*np.sin(w*t - phi)
+    return a*np.sin(w*t + phi)
 
 # 140n plot
 fig = plt.figure()
