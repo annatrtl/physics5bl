@@ -29,14 +29,16 @@ time3 = time3 - time3[0] #s
 # raw data plot setup
 fig = plt.figure()
 plt.title('')
-plt.xlabel('')
-plt.ylabel('')
+plt.xlabel('time')
+plt.ylabel('kHz')
 plt.scatter(time1, dB1, color="red", label="300n", marker="o")
 plt.scatter(time2, dB2, color="blue", label="140n", marker="o")
 plt.scatter(time3, dB3, color="green", label="93n", marker="o")
 
+plt.legend()
+
 # average data calc
-dB1_avg = np.array([np.mean(dB1[0:60]), np.mean(dB1[61:112]), np.mean(dB1[113:202]), np.mean(dB1[203:227]), np.mean(dB1[229:283]), np.mean(dB1[284:338]), np.mean(dB1[339:395]), np.mean(dB1[396:451]), np.mean(dB1[452:503]), np.mean(dB1[504:558]), np.mean(dB1[559:]),])
+dB1_avg = np.array([np.mean(dB1[0:60]), np.mean(dB1[61:112]), np.mean(dB1[113:202]), np.mean(dB1[203:227]), np.mean(dB1[229:283]), np.mean(dB1[284:338]), np.mean(dB1[339:395]), np.mean(dB1[396:451]), np.mean(dB1[452:503]), np.mean(dB1[504:558]), np.mean(dB1[559:612]), np.mean(dB1[613:664]), np.mean(dB1[665:716]), np.mean(dB1[717:767]), np.mean(dB1[768:821]), np.mean(dB1[822:875]), np.mean(dB1[876:929]), np.mean(dB1[930:983]), np.mean(dB1[984:1032])])
 dB2_avg = np.array(np.mean(dB1[0:0]), )
 
 # average data plot setup
@@ -44,6 +46,7 @@ fig = plt.figure()
 plt.title('')
 plt.xlabel('')
 plt.ylabel('')
+plt.scatter(freq, dB1_avg)
 
 
 plt.legend()
