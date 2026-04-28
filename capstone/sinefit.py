@@ -32,8 +32,8 @@ def sin(t, a, w, phi):
 # 140n plot
 fig = plt.figure()
 plt.title('Detected sound fit to sine wave for 140n solenoid')
-plt.xlabel('Voltage [V]')
-plt.ylabel('Time [s]')
+plt.ylabel('Voltage [V]')
+plt.xlabel('Time [s]')
 plt.scatter(time1, v1, color="blue", label="140n oscilloscope data")
 
 guesses1 = [0.003, ang_freq, 0.05]
@@ -46,8 +46,8 @@ plt.legend()
 # 300n plot
 fig = plt.figure()
 plt.title('Detected sound fit to sine wave for 300n solenoid')
-plt.xlabel('Voltage [V]')
-plt.ylabel('Time [s]')
+plt.ylabel('Voltage [V]')
+plt.xlabel('Time [s]')
 plt.scatter(time2, v2, color="red", label="300n oscilloscope data")
 
 guesses2 = [0.01, ang_freq, 0]
@@ -59,8 +59,8 @@ plt.legend()
 # 93n plot
 fig = plt.figure()
 plt.title('Detected sound fit to sine wave for 93 solenoid')
-plt.xlabel('Voltage [V]')
-plt.ylabel('Time [s]')
+plt.ylabel('Voltage [V]')
+plt.xlabel('Time [s]')
 plt.scatter(time1, v1, color="green", label="93n oscilloscope data")
 
 guesses3 = [0.01, ang_freq, 0]
@@ -68,5 +68,30 @@ popt3, pcov3 = curve_fit(sin, time3, v3, p0=guesses3)
 plt.plot(time3, sin(time3, *popt3), 'r-', color="orange", label=f"{popt3[0]:.9f}*sin({popt3[1]:.9f}t + {popt3[2]:.9f}")
 
 plt.legend()
+
+# normalized residuals
+fig = plt.figure()
+plt.title('Normalized residuals for 140n')
+plt.ylabel('Residuals [V]')
+plt.xlabel('Time [s]')
+fit1 = popt1[0]*np.sin(popt1[1]*time1 + popt1[2]) 
+plt.scatter(time1, (fit1-v1)/popt1[0], color='blue')
+print(f"140n: {np.abs(np.mean(np.abs(fit1-v1)/popt1[0]))}")
+
+fig = plt.figure()
+plt.title('Normalized residuals for 300n')
+plt.ylabel('Residuals [V]')
+plt.xlabel('Time [s]')
+fit2 = popt2[0]*np.sin(popt2[1]*time2 + popt2[2]) 
+plt.scatter(time2, (fit2-v2)/popt2[0], color='red')
+print(f"300n: {np.abs(np.mean(np.abs(fit2-v2)/popt2[0]))}")
+
+fig = plt.figure()
+plt.title('Normalized residuals for 93n')
+plt.ylabel('Residuals [V]')
+plt.xlabel('Time [s]')
+fit3 = popt3[0]*np.sin(popt3[1]*time3 + popt3[2]) 
+plt.scatter(time3, (fit3-v3)/popt3[0], color='green')
+print(f"93n: {np.abs(np.mean(np.abs(fit3-v3)/popt3[0]))}")
 
 plt.show()

@@ -70,5 +70,21 @@ plt.scatter(freq, dB3_avg, color="green", label="93n")
 
 plt.legend()
 
+# delta dB
+delta_dB_93to140 = np.mean((dB2_avg[:-2] - dB3_avg[:-2]))
+delta_dB_140to300 = np.mean((dB1_avg - dB2_avg))
+delta_dB_93to300 = np.mean((dB1_avg[:-2] - dB3_avg[:-2]))
+print(dB3_avg - dB1_avg)
+
+print(f"Experimental (140n - 93n) dB: {delta_dB_93to140}")
+print(f"Theoretical (140n - 93n) dB: {20*np.log(93/140)}")
+
+
+print(f"Experimental (300n - 140n) dB: {delta_dB_140to300}")
+print(f"Theoretical (300n - 140n) dB: {20*np.log(140/300)}")
+
+
+print(f"Experimental (300n - 93n) dB: {delta_dB_93to300}")
+print(f"Theoretical (300n - 93n) dB: {20*np.log(93/300)}")
 
 plt.show()
