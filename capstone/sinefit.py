@@ -61,7 +61,7 @@ fig = plt.figure()
 plt.title('Detected sound fit to sine wave for 93 solenoid')
 plt.ylabel('Voltage [V]')
 plt.xlabel('Time [s]')
-plt.scatter(time1, v1, color="green", label="93n oscilloscope data")
+plt.scatter(time3, v3, color="green", label="93n oscilloscope data")
 
 guesses3 = [0.01, ang_freq, 0]
 popt3, pcov3 = curve_fit(sin, time3, v3, p0=guesses3) 
