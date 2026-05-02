@@ -52,7 +52,7 @@ plt.scatter(time2, v2, color="red", label="300n oscilloscope data")
 
 guesses2 = [0.01, ang_freq, 0]
 popt2, pcov2 = curve_fit(sin, time2, v2, p0=guesses2) 
-plt.plot(time2, sin(time2, *popt2), 'r-', color="orange", label=f"{popt2[0]:.9f}*sin({popt2[1]:.9f}t + {popt2[2]:.9f}")
+#plt.plot(time2, sin(time2, *popt2), 'r-', color="orange", label=f"{popt2[0]:.9f}*sin({popt2[1]:.9f}t + {popt2[2]:.9f}")
 
 plt.legend()
 
@@ -65,7 +65,7 @@ plt.scatter(time3, v3, color="green", label="93n oscilloscope data")
 
 guesses3 = [0.01, ang_freq, 0]
 popt3, pcov3 = curve_fit(sin, time3, v3, p0=guesses3) 
-plt.plot(time3, sin(time3, *popt3), 'r-', color="orange", label=f"{popt3[0]:.9f}*sin({popt3[1]:.9f}t + {popt3[2]:.9f}")
+#plt.plot(time3, sin(time3, *popt3), 'r-', color="orange", label=f"{popt3[0]:.9f}*sin({popt3[1]:.9f}t + {popt3[2]:.9f}")
 
 plt.legend()
 
